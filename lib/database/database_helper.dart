@@ -32,7 +32,7 @@ class DatabaseHelper {
     return await openDatabase(
       path,
       //Renombramos la version para recrear la tabla
-      version: 3,
+      version: 4,
       //Creamos la base de datos
       onCreate: _onCreate,
       //Actualizamos la base de datos
@@ -45,22 +45,22 @@ class DatabaseHelper {
     //Creamos la tabla usuario
     await db.execute('''
       CREATE TABLE users(
-      int INTEGER PRIMARY KEY AUTOINCREMENT,
-      nombres TEXT NOT NULL,
-      apellidos TEXT NOT NULL,
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      nombre TEXT NOT NULL,
+      apellido TEXT NOT NULL,
       dni TEXT NOT NULL UNIQUE,
       sexo TEXT NOT NULL,
       registro TEXT NOT NULL,
       direccion TEXT NOT NULL,
       email TEXT NOT NULL UNIQUE,
-      password TEXT NOT NULL,
+      password TEXT NOT NULL
       )
 ''');
 
     //Creamos un usuario interno para poder ingresar al app
     await db.insert('users', {
       'nombre': 'Jenner',
-      'apellidos': 'Cabello',
+      'apellido': 'Cabello',
       'dni': '71530870',
       'sexo': 'Masculino',
       'registro': '22334455',
@@ -104,5 +104,11 @@ class DatabaseHelper {
     }
     //Si no encontramos el usuario, retornamos null
     return null;
+  }
+
+  Future<List<UsersModel>> getAllUsers() async {
+    final db = await database;
+    final result = await db.query('users');
+    return result.map((map) => UsersModel.fromMap(map)).toList();
   }
 }

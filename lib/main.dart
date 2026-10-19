@@ -1,8 +1,9 @@
+import 'package:ejemplo01/pages_Sqlite/login_page.dart';
+import 'package:ejemplo01/repository/user_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'bloc/login_bloc.dart';
-import 'screensBloc/login_screen.dart';
+import 'bloc/login_bloc_Sqlite.dart';
 
 //Punto de entrada de la aplicacion
 //Toda app en dart empieza ejecutando la funcion main()
@@ -15,17 +16,13 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      //Ocultamos el banner en la esquina superior de la pantalla
-      debugShowCheckedModeBanner: false,
-      title: 'Login Bloc',
-      //Definimos el witget que se mostrara como pantalla principal
-      home: BlocProvider(
-        // create: crea la instancia del login bloc
-        // la cual quedara disponible para todos los witget
-        create: (_) => LoginBloc(),
-        //Child es una propiedad que permite acceder al loginbloc
-        child: const LoginScreen(),
+    final userRepository = UserRepository();
+    return BlocProvider(
+      create: (_) => LoginBloc(userRepository),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: "Login Bloc Sqlite",
+        home: const LoginPage(),
       ),
     );
   }

@@ -16,4 +16,8 @@ class UserRepository {
     //Guardamos el usuario en SQLite
     return _databaseHelper.register(user);
   }
+
+  Future<List<UsersModel>> getUsers() {
+    return _databaseHelper.getAllUsers();
+  }
 }
