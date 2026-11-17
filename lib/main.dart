@@ -1,5 +1,6 @@
 import 'package:ejemplo01/pages_Sqlite/login_page.dart';
 import 'package:ejemplo01/repository/user_repository.dart';
+import 'package:ejemplo01/user_Sqlite/user_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -17,8 +18,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final userRepository = UserRepository();
-    return BlocProvider(
-      create: (_) => LoginBloc(userRepository),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (_) => LoginBloc(userRepository)),
+        BlocProvider(create: (_) => UserBloc(userRepository)),
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: "Login Bloc Sqlite",

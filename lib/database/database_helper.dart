@@ -111,4 +111,14 @@ class DatabaseHelper {
     final result = await db.query('users');
     return result.map((map) => UsersModel.fromMap(map)).toList();
   }
+
+  Future<int> updateuser(UsersModel user) async {
+    final db = await database;
+    return await db.update(
+      'users',
+      user.toMap(),
+      where: 'id=?',
+      whereArgs: [user.id],
+    );
+  }
 }

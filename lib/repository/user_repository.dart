@@ -20,4 +20,9 @@ class UserRepository {
   Future<List<UsersModel>> getUsers() {
     return _databaseHelper.getAllUsers();
   }
+
+  Future<int> updateUser(UsersModel user) async {
+    //Guardamos el usuario en SQLite
+    return _databaseHelper.updateuser(user);
+  }
 }

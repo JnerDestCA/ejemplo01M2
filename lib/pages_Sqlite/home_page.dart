@@ -1,3 +1,4 @@
+import 'package:ejemplo01/user_Sqlite/user_page.dart';
 import 'package:flutter/material.dart';
 
 import '../../models/users_model.dart';
@@ -41,6 +42,7 @@ class HomePage extends StatelessWidget {
                 Navigator.pop(context);
               },
             ),
+            const Divider(),
             ListTile(
               leading: const Icon(Icons.person_add),
               title: const Text('Registrar Usuario'),
@@ -49,6 +51,17 @@ class HomePage extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (_) => const RegisterPage()),
+                );
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.people),
+              title: const Text('Listar Usuarios'),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => const UserPage()),
                 );
               },
             ),
