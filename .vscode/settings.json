@@ -1,5 +1,6 @@
 {
     "conventionalCommits.scopes": [
-        "Edit Users"
+        "Edit Users",
+        "delete"
     ]
 }

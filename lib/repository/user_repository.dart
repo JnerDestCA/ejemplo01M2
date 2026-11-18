@@ -25,4 +25,9 @@ class UserRepository {
     //Guardamos el usuario en SQLite
     return _databaseHelper.updateuser(user);
   }
+
+  Future<int> deleteUser(int id) async {
+    //Guardamos el usuario en SQLite
+    return _databaseHelper.deleteUser(id);
+  }
 }

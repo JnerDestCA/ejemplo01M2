@@ -26,5 +26,15 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         emit(UserFailure('Error al actualizar el usuario'));
       }
     });
+    on<DeleteUserEvent>((event, emit) async {
+      emit(UserLoading());
+      try {
+        await userRepository.deleteUser(event.id);
+        final users = await userRepository.getUsers();
+        emit(UserLoaded(users));
+      } catch (e) {
+        emit(UserFailure('Error al eliminar el usuario'));
+      }
+    });
   }
 }

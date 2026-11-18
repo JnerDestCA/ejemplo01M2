@@ -1,3 +1,4 @@
+import 'package:ejemplo01/pages_Sqlite/user_detail_page.dart';
 import 'package:ejemplo01/user_Sqlite/user_edit_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -51,19 +52,72 @@ class _UserPageState extends State<UserPage> {
                     title: Text('${user.nombres} ${user.apellidos}'),
                     subtitle: Text('DNI:${user.dni}\nCorreo:${user.email}'),
                     isThreeLine: true,
-                    trailing: IconButton(
-                      icon: const Icon(Icons.edit, color: Colors.blueAccent),
-                      onPressed: () async {
-                        final result = await Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) => UserEditPage(user: user),
+                    trailing: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        IconButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => UserDetailPage(user: user),
+                              ),
+                            );
+                          },
+                          icon: const Icon(
+                            Icons.visibility,
+                            color: Colors.green,
                           ),
-                        );
-                        if (result == true) {
-                          context.read<UserBloc>().add(LoadUsersEvent());
-                        }
-                      },
+                        ),
+                        IconButton(
+                          onPressed: () async {
+                            final result = await Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => UserEditPage(user: user),
+                              ),
+                            );
+                            if (result == true) {
+                              context.read<UserBloc>().add(LoadUsersEvent());
+                            }
+                          },
+                          icon: const Icon(
+                            Icons.edit,
+                            color: Colors.blueAccent,
+                          ),
+                        ),
+                        IconButton(
+                          onPressed: () {
+                            showDialog(
+                              context: context,
+                              builder: (_) => AlertDialog(
+                                title: const Text('Eliminar usuario'),
+                                content: const Text(
+                                  'Seguro que quieres eliminar este usuario?',
+                                ),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: const Text('Cancelar'),
+                                  ),
+                                  ElevatedButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                      context.read<UserBloc>().add(
+                                        DeleteUserEvent(user.id!),
+                                      );
+                                    },
+                                    child: const Text('Eliminar'),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                          icon: const Icon(Icons.delete, color: Colors.red),
+                        ),
+                      ],
                     ),
                   ),
                 );

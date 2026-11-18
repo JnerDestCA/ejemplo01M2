@@ -9,3 +9,8 @@ class UpdateUserEvent extends UserEvent {
   final UsersModel user;
   UpdateUserEvent(this.user);
 }
+
+class DeleteUserEvent extends UserEvent {
+  final int id;
+  DeleteUserEvent(this.id);
+}
