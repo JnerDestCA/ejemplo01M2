@@ -35,8 +35,10 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
   #Esto añadimos la primera clase para usar el patron block
-  flutter_bloc: ^8.1.3
+  flutter_bloc: ^9.1.1
   sqflite: ^2.4.4
+  firebase_core: ^5.2.0
+  firebase_auth: ^7.1.0
 
 dev_dependencies:
   flutter_test:
